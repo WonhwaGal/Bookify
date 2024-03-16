@@ -1,0 +1,35 @@
+name: dockercompose12493125898809239029
+services:
+  bookify-api:
+    build:
+      context: C:\C#Developer\MyApps\Bookify
+      dockerfile: Bookify/Dockerfile
+    container_name: Bookify.Api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+    image: bookify.api
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8080"
+        protocol: tcp
+  bookify-db:
+    container_name: Bookify.Db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Express
+      MSSQL_SA_PASSWORD: 1234512345Aa$$
+    image: mcr.microsoft.com/mssql/server:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1433"
+        protocol: tcp
+networks:
+  default:
+    name: dockercompose12493125898809239029_default

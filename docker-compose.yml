@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  bookify-api:
+    image: bookify.api
+    container_name: Bookify.Api
+    build:
+      context: .
+      dockerfile: Bookify/Dockerfile
+    depends_on:
+      - bookify-db
+  bookify-db:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: Bookify.Db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=1234512345Aa$
+      - MSSQL_PID=Express
+    volumes:
+      - ./.containers/db-bookify:/var/opt/mssql/data
+    ports:
+      - "1433:1433"
+  
+

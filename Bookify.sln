@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookify", "Bookify\Bookify.csproj", "{0009CCB9-8B73-42FD-B2A2-738682BAD2AD}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{EE04751C-C6C2-4768-952C-95CAD1070EEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0009CCB9-8B73-42FD-B2A2-738682BAD2AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0009CCB9-8B73-42FD-B2A2-738682BAD2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0009CCB9-8B73-42FD-B2A2-738682BAD2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0009CCB9-8B73-42FD-B2A2-738682BAD2AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE04751C-C6C2-4768-952C-95CAD1070EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE04751C-C6C2-4768-952C-95CAD1070EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE04751C-C6C2-4768-952C-95CAD1070EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE04751C-C6C2-4768-952C-95CAD1070EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FC3BEE3-AF0F-4155-AA17-B4A4EF8BB6EE}
+	EndGlobalSection
+EndGlobal

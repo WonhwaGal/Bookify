@@ -1,0 +1,377 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Bookify</name>
+    </assembly>
+    <members>
+        <member name="T:Bookify.Controllers.ApartmentsController">
+            <summary>
+            Представляет набор методов по работе с аппартаментами
+            </summary>
+        </member>
+        <member name="M:Bookify.Controllers.ApartmentsController.#ctor(Bookify.Models.Services.IApartmentRepository)">
+            <summary>
+            Представляет набор методов по работе с аппартаментами
+            </summary>
+        </member>
+        <member name="M:Bookify.Controllers.ApartmentsController.SearchApartments(Bookify.Models.Requests.SearchApartmentRequest)">
+            <summary>
+            Поиск аппартаментов по датам заселения и дополнительным параметрам
+            </summary>
+            <param name="request">Набор параметров, необходимых для поиска аппартаментов</param>
+            <returns>Результат поиска аппартаментов</returns>
+            <response code="200">Успешное выполнение</response>
+            <response code="400">Ошибка API</response>
+        </member>
+        <member name="M:Bookify.Controllers.ApartmentsController.AddApartment(Bookify.Models.Requests.AddApartmentRequest)">
+             <summary>
+             Добавление нового аппартамента
+             </summary>
+             <remarks>
+             Пример запроса:
+             
+                 POST/ToDo
+                 {
+                     "name": "[название аппартаментов]",
+                     "description": "[описание аппартаментов]",
+                     "address": "[адрес аппартаментов]",
+                     "amenities": "дополнительные удобства в формате [ 1, 2, 3]"
+                 }
+            
+             1 - Wifi;  2 - Кондиционер;  3 - Парковка;  4 - Домашние животные;  5 - Бассейн;
+               6 - Спортзал;  7 - СПА;  8 - Терраса;  9 - Вид на горы;  10 - Вид на сад;
+             </remarks>
+             <param name="request">Набор параметров, необходимых для добавления аппартамента</param>
+             <returns>Результат создания нового аппартамента</returns>
+             <response code="200">Успешное выполнение</response>
+             <response code="400">Ошибка API</response>
+        </member>
+        <member name="T:Bookify.Controllers.BookingController">
+            <summary>
+            Представляет набор методов, отвечающих за работу с бронированиями
+            </summary>
+        </member>
+        <member name="M:Bookify.Controllers.BookingController.#ctor(Bookify.Models.Services.IBookingRepository)">
+            <summary>
+            Представляет набор методов, отвечающих за работу с бронированиями
+            </summary>
+        </member>
+        <member name="M:Bookify.Controllers.BookingController.FilterBookings(Bookify.Models.Requests.FilterBookingsRequest)">
+            <summary>
+            Получение информации о бронированиях пользователя, опционально по датам и статусу
+            </summary>
+            <param name="request">Набор параметров, необходимых для фильтрации бронирований</param>
+            <returns>Результат фильтрации бронирований</returns>
+            <response code="200">Успешное выполнение</response>
+            <response code="400">Ошибка API</response>
+        </member>
+        <member name="M:Bookify.Controllers.BookingController.ReceiveBooking(Bookify.Models.Requests.ReserveBookingRequest)">
+            <summary>
+            Создание нового бронирования
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                POST/ToDo
+                {
+                    "apartmentId": "[идентификатор аппартаментов]",
+                    "userId": "[идентификатор клиента]",
+                    "startDate": "дата заезда в формате [2024-02-12]",
+                    "endDate": "дата выезда в формате [2024-02-12]"
+                }
+            </remarks>
+            <param name="request">Набор параметров, необходимых для создания бронирования клиента</param>
+            <returns>Результат создания нового бронирования</returns>
+            <response code="200">Успешное выполнение</response>
+            <response code="400">Ошибка API</response>
+        </member>
+        <member name="T:Bookify.Controllers.ReviewController">
+            <summary>
+            Представляет набор методов, отвечающих за работу с отзывами пользователей
+            </summary>
+        </member>
+        <member name="M:Bookify.Controllers.ReviewController.#ctor(Bookify.Models.Services.IReviewRepository)">
+            <summary>
+            Представляет набор методов, отвечающих за работу с отзывами пользователей
+            </summary>
+        </member>
+        <member name="M:Bookify.Controllers.ReviewController.PostReview(Bookify.Models.Requests.CreateReviewRequest)">
+            <summary>
+            Размещение нового отзыва на бронирование
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                POST/ToDo
+                {
+                    "bookingId": "[идентификатор бронирования]",
+                    "rating": "[оценка бронирования : от 1 до 5]",
+                    "comment": "[комментарий клиента]"
+                }
+                
+            </remarks>
+            <param name="request">Набор параметров, необходимых для создания отзыва на услугу бронирования</param>
+            <returns>Результат создания нового отзыва</returns>
+            <response code="200">Успешное выполнение</response>
+            <response code="400">Ошибка API</response>
+        </member>
+        <member name="M:Bookify.Controllers.ReviewController.FilterReviews(Bookify.Models.Requests.FilterReviewsRequest)">
+            <summary>
+            Поиск отзывов об аппартаменте, опционально по временному периоду и оценке
+            </summary>
+            <param name="request">Набор параметров, необходимых для предоставления выборки отзывов</param>
+            <returns>Результат проведения поиска отзывов</returns>
+            <response code="200">Успешное выполнение</response>
+            <response code="400">Ошибка API</response>
+        </member>
+        <member name="T:Bookify.Controllers.UsersController">
+            <summary>
+            Представляет набор методов, отвечающих за работу авторизации и регистрации
+            новых пользователей в системе бронирования
+            </summary>
+        </member>
+        <member name="M:Bookify.Controllers.UsersController.#ctor(Bookify.Models.Services.IUserRepository)">
+            <summary>
+            Представляет набор методов, отвечающих за работу авторизации и регистрации
+            новых пользователей в системе бронирования
+            </summary>
+        </member>
+        <member name="M:Bookify.Controllers.UsersController.Register(Bookify.Models.Requests.RegisterUserRequest)">
+            <summary>
+            Регистрация нового пользователя в системе
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                POST/ToDo
+                {
+                    "firstName": "[имя клиента]",
+                    "lastName": "[фамилия клиента]",
+                    "email" : "[логин клиента (электронная почта)]",
+                    "password" : "[пароль клиента]"
+                    "confirmPassword" : "[повторный пароль клиента]"
+                }
+                
+            </remarks>
+            <param name="request">Набор параметров, необходимых для регистрации нового пользователя в системе</param>
+            <returns>Результат регистрации нового пользователя</returns>
+            <response code="200">Успешное выполнение</response>
+            <response code="400">Ошибка API</response>
+        </member>
+        <member name="M:Bookify.Controllers.UsersController.LogIn(Bookify.Models.Requests.LoginRequest)">
+            <summary>
+            Авторизация пользователя в системе
+            </summary>
+            <remarks>
+            Пример запроса:
+            
+                POST/ToDo
+                {
+                    "email" : "[логин клиента (электронная почта)]",
+                    "password" : "[пароль клиента]"
+                }
+                
+            </remarks>
+            <param name="request">Набор параметров, необходимых для авторизации пользователя в системе</param>
+            <returns>Результат авторизации пользователя</returns>
+            <response code="200">Успешное выполнение</response>
+            <response code="400">Ошибка API</response>
+        </member>
+        <member name="T:Bookify.Migrations.Initial">
+            <inheritdoc />
+        </member>
+        <member name="M:Bookify.Migrations.Initial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bookify.Migrations.Initial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Bookify.Migrations.Initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="P:Bookify.Models.Requests.AddApartmentRequest.Name">
+            <summary>
+            Название
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.AddApartmentRequest.Description">
+            <summary>
+            Описание
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.AddApartmentRequest.Address">
+            <summary>
+            Адрес
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.AddApartmentRequest.Amenities">
+            <summary>
+            Дополнительные удобства
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.CreateReviewRequest.BookingId">
+            <summary>
+            Идентификатор бронирования
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.CreateReviewRequest.Rating">
+            <summary>
+            Оценка от 1 до 5
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.CreateReviewRequest.Comment">
+            <summary>
+            Комментарий
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.FilterBookingsRequest.UserId">
+            <summary>
+            Идентификатор пользователя
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.FilterBookingsRequest.BookingStatus">
+            <summary>
+             1 - Зарезервировано;
+             2 - Подтверждено;
+             3 - Отменено системой (отказ);
+             4 - Отменено клиентом;
+             5 - Услуга полностью выполнена;
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.FilterBookingsRequest.StartDate">
+            <summary>
+            Начальная дата поиска в формате: 2024-01-01
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.FilterBookingsRequest.EndDate">
+            <summary>
+            Конечная дата поиска в формате: 2024-01-01
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.FilterReviewsRequest.ApartmentId">
+            <summary>
+            Идентификатор аппартамента
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.FilterReviewsRequest.Rating">
+            <summary>
+            Оценка от 1 до 5
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.FilterReviewsRequest.StartDate">
+            <summary>
+            Начальная дата поиска в формате: 2024-01-01
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.FilterReviewsRequest.EndDate">
+            <summary>
+            Конечная дата поиска в формате: 2024-01-01
+            </summary>
+        </member>
+        <member name="T:Bookify.Models.Requests.LoginRequest">
+            <summary>
+            Набор параметров, необходимый для проведения процедуры
+            аутентификации пользователя в системе
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.LoginRequest.Email">
+            <summary>
+            Электронная почта
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.LoginRequest.Password">
+            <summary>
+            Пароль
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.RegisterUserRequest.FirstName">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.RegisterUserRequest.LastName">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.RegisterUserRequest.Email">
+            <summary>
+            Электронная почта
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.RegisterUserRequest.Password">
+            <summary>
+            Пароль
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.RegisterUserRequest.ConfirmPassword">
+            <summary>
+            Повтор пароля
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.ReserveBookingRequest.ApartmentId">
+            <summary>
+            Идентификатор аппартмента
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.ReserveBookingRequest.UserId">
+            <summary>
+            Идентификатор клиента
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.ReserveBookingRequest.DateFrom">
+            <summary>
+            Дата заезда
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.ReserveBookingRequest.DateTo">
+            <summary>
+            Дата выезда
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.SearchApartmentRequest.StartDate">
+            <summary>
+            Дата заезда в формате: 2024-01-01
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.SearchApartmentRequest.EndDate">
+            <summary>
+            Дата выезда в формате: 2024-01-01
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.SearchApartmentRequest.MaxPrice">
+            <summary>
+            Максимальная стоимость
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.SearchApartmentRequest.NecessaryAmenities">
+            <summary>
+             1 - Wifi;
+             2 - Кондиционер;
+             3 - Парковка;
+             4 - Домашними животные;
+             5 - Бассейн;
+             6 - Спортзал;
+             7 - СПА;
+             8 - Терраса;
+             9 - Вид на горы;
+             10 - Вид на сад;
+            </summary>
+        </member>
+        <member name="T:Bookify.Models.Results.ErrorResult">
+            <summary>
+            Ошибка при выполнении запроса
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Results.ErrorResult.ErrorCode">
+            <summary>
+            Код ошибки
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Results.ErrorResult.ErrorMessages">
+            <summary>
+            Описание ошибки
+            </summary>
+        </member>
+    </members>
+</doc>
