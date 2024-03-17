@@ -4,11 +4,6 @@ namespace Bookify.Models
 {
     public class Review : Entity
     {
-        public static Review Create(Guid apartID, Guid bookingId, Guid userId, int rating, string comment, DateTime date)
-        {
-            return new Review(Guid.NewGuid(), apartID, bookingId, userId, rating, comment, date);
-        }
-
         public Review() { }
 
         private Review(
@@ -34,5 +29,22 @@ namespace Bookify.Models
         public int Rating { get; private set; }
         public string Comment { get; private set; }
         public DateTime CreatedOnUtc { get; private set; }
+
+        public static Review PublishReview(
+            Guid apartID, 
+            Guid bookingId, 
+            Guid userId, 
+            int rating, 
+            string comment)
+        {
+            return new Review(
+                Guid.NewGuid(), 
+                apartID, 
+                bookingId, 
+                userId, 
+                rating, 
+                comment, 
+                DateTime.Now);
+        }
     }
 }

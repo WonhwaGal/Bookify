@@ -140,3 +140,4 @@ C:\C#Developer\MyApps\Bookify\Bookify\bin\Debug\net8.0\Bogus.dll
 C:\C#Developer\MyApps\Bookify\Bookify\bin\Debug\net8.0\Dapper.dll
 C:\C#Developer\MyApps\Bookify\Bookify\bin\Debug\net8.0\DateOnlyTimeOnly.AspNet.dll
 C:\C#Developer\MyApps\Bookify\Bookify\bin\Debug\net8.0\DateOnlyTimeOnly.AspNet.Swashbuckle.dll
+C:\C#Developer\MyApps\Bookify\Bookify\obj\Debug\net8.0\Bookify.sourcelink.json

@@ -22,6 +22,7 @@ namespace Bookify
             builder.Services.AddRepositories();
 
             builder.Services.AddScoped<PricingService>();
+            builder.Services.AddScoped<ApartmentSettingService>();
 
             builder.Services.AddOptions(builder.Configuration);
             builder.Services.AddPersistence(builder.Configuration);
@@ -63,7 +64,7 @@ namespace Bookify
                 app.UseSwagger();
                 app.UseSwaggerUI();
                 app.ApplyMigrations();
-                app.SeedData();
+                //app.SeedData();
             }
 
             app.UseAuthorization();

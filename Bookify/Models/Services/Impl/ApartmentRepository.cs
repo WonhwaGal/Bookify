@@ -1,14 +1,41 @@
 ﻿using Bookify.Infrastructure;
 using Bookify.Infrastructure.Services;
 using Bookify.Models.Results;
+using Bookify.Services;
 using Dapper;
 
 namespace Bookify.Models.Services.Impl
 {
     public class ApartmentRepository(
+        ApartmentSettingService settingService,
         ISqlConnectionFactory sqlConnectionFactory,
         ApplicationDbContext dbContext) : IApartmentRepository
     {
+        public Result<Guid> CreateAppartment(string name, string address, decimal price)
+        {
+            var addressIsRegistered = GetByAddress(address);
+            if (addressIsRegistered)
+            {
+                return Result.Failure<Guid>(ApartmentError.Exists);
+            }
+
+            var apartment = Apartment.Create(
+                settingService,
+                name,
+                address,
+                price);
+
+            dbContext.Add(apartment);
+            dbContext.SaveChanges();
+
+            return apartment.Id;
+        }
+
+        private bool GetByAddress(string address)
+        {
+            return dbContext.Apartments.Any(apartment => apartment.Address == address);
+        }
+
         public Apartment? GetById(Guid id)
         {
             return dbContext.Apartments.FirstOrDefault(apartment => apartment.Id == id);

@@ -6,6 +6,8 @@ namespace Bookify.Models
 {
     public class Booking : Entity
     {
+        public Booking() { }
+
         private Booking(
             Guid id,
             Guid apartmentId,
@@ -30,8 +32,6 @@ namespace Bookify.Models
             Status = status;
             CreatedOnUtc = createdOnUtc;
         }
-
-        public Booking() { }
 
         public Guid ApartmentId { get; private set; }
         public Guid UserId { get; private set; }

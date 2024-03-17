@@ -1,5 +1,4 @@
-﻿
-using Bookify.Infrastructure;
+﻿using Bookify.Infrastructure;
 using Bookify.Infrastructure.Services;
 using Bookify.Models.Results;
 using Bookify.Services;
@@ -66,6 +65,11 @@ namespace Bookify.Models.Services.Impl
             return booking.Id;
         }
 
+        public Booking? GetById(Guid id)
+        {
+            return dbContext.Bookings.FirstOrDefault(booking => booking.Id == id);
+        }
+
         public Result<IReadOnlyList<Booking>> GetByPer(
             Guid? userId, DateOnly? startDate, DateOnly? endDate, BookingStatus? bookingStatus)
         {
@@ -118,11 +122,6 @@ namespace Bookify.Models.Services.Impl
         }
 
         public ICollection<Booking> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Booking? GetById(Guid id)
         {
             throw new NotImplementedException();
         }

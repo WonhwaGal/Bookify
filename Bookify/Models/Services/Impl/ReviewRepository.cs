@@ -3,25 +3,46 @@ using Bookify.Infrastructure.Services;
 using Bookify.Infrastructure.Services.Impl;
 using Bogus.DataSets;
 using Bookify.Models.Results;
+using Bookify.Infrastructure;
 
 namespace Bookify.Models.Services.Impl
 {
-    public class ReviewRepository(ISqlConnectionFactory sqlConnectionFactory) : IReviewRepository
+    public class ReviewRepository(
+        IBookingRepository bookingRepository,
+        ISqlConnectionFactory sqlConnectionFactory,
+        ApplicationDbContext dbContext) : IReviewRepository
     {
-        public int Create(Review item)
+        public Result<Guid> CreateReview(Guid bookingId, int rating, string? comment)
         {
-            throw new NotImplementedException();
-        }
+            var booking = bookingRepository.GetById(bookingId);
+            if(booking == null)
+            {
+                return Result.Failure<Guid>(BookingError.NotFound);
+            }
 
-        public ICollection<Review> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+            if(booking.Status != BookingStatus.Completed)
+            {
+                return Result.Failure<Guid>(BookingError.NotCompleted);
+            }
 
-        public Review? GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+            var bookingAlreadyHasReview = dbContext.Reviews.Any(rev => rev.BookingId == bookingId);
+            if(bookingAlreadyHasReview)
+            {
+                return Result.Failure<Guid>(BookingError.ExistingReview);
+            }
+
+            var review = Review.PublishReview(
+                booking.ApartmentId,
+                booking.Id,
+                booking.UserId,
+                rating,
+                comment);
+
+            dbContext.Reviews.Add(review);
+            dbContext.SaveChanges();
+
+            return review.Id;
+        } 
 
         public Result<IReadOnlyList<Review>> GetByPer(Guid appartID, DateOnly? startDate, DateOnly? endDate, byte? rating)
         {
@@ -60,6 +81,21 @@ namespace Bookify.Models.Services.Impl
                 });
 
             return reviews.ToList();
+        }
+
+        public int Create(Review item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<Review> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Review? GetById(Guid id)
+        {
+            throw new NotImplementedException();
         }
 
         public int Remove(Guid id)

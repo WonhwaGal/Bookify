@@ -15,7 +15,7 @@ namespace Bookify.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class ReviewController(IReviewRepository reviewRepository): ControllerBase
+    public class ReviewController(IReviewRepository reviewRepository) : ControllerBase
     {
         /// <summary>
         /// Размещение нового отзыва на бронирование
@@ -41,7 +41,15 @@ namespace Bookify.Controllers
         [TypeFilter(typeof(ValidationFilterAttribute), Arguments = new object[] { -103 })]
         public IActionResult PostReview([FromBody] CreateReviewRequest request)
         {
-            return Ok(Guid.NewGuid());
+            var result = reviewRepository.CreateReview(
+                request.BookingId,
+                request.Rating,
+                request.Comment);
+
+            if (result.IsSuccess)
+                return Ok(result.Value);
+            else
+                return BadRequest(result.Error);
         }
 
         /// <summary>

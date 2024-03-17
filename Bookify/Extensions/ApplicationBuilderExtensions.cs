@@ -30,8 +30,7 @@ namespace Bookify.Extensions
             {
                 string apartmentType = i % 3 == 0 ? "Apartment" : "House";
                 var randomAmenities = $"[{faker.Random.Byte(1,3)}, {faker.Random.Byte(4, 6)}, {faker.Random.Byte(7, 10)}]";
-                var boolValue = i % 3 == 0;
-                string finalAmenities = boolValue ? "[]" : randomAmenities;
+                string finalAmenities = faker.Random.Bool() ? "[]" : randomAmenities;
 
                 apartments.Add(new
                 {
@@ -165,6 +164,9 @@ namespace Bookify.Extensions
 
             for (int i = 0; i < completedBookings.Length; i++)
             {
+                if (i % 10 == 0)
+                    continue;
+
                 var booking = completedBookings[i];
                 var rating = faker.Random.Int(1, 5);
                 if(rating <= 2)

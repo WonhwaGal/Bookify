@@ -18,27 +18,6 @@ namespace Bookify.Controllers
     public class BookingController(IBookingRepository bookingRepository) : ControllerBase
     {
         /// <summary>
-        /// Получение информации о бронированиях пользователя, опционально по датам и статусу
-        /// </summary>
-        /// <param name="request">Набор параметров, необходимых для фильтрации бронирований</param>
-        /// <returns>Результат фильтрации бронирований</returns>
-        /// <response code="200">Успешное выполнение</response>
-        /// <response code="400">Ошибка API</response>
-        [HttpGet("filter")]
-        [ProducesResponseType(typeof(IReadOnlyList<Booking>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ErrorResult), (int)HttpStatusCode.BadRequest)]
-        [TypeFilter(typeof(ValidationFilterAttribute), Arguments = new object[] { -105 })]
-        public IActionResult FilterBookings([FromQuery] FilterBookingsRequest request)
-        {
-            var query = bookingRepository.GetByPer(
-                request.UserId,
-                request.StartDate,
-                request.EndDate,
-                request.BookingStatus);
-            return Ok(query.Value);
-        }
-
-        /// <summary>
         /// Создание нового бронирования
         /// </summary>
         /// <remarks>
@@ -72,6 +51,28 @@ namespace Bookify.Controllers
                 return Ok(result.Value);
             else
                 return BadRequest(result.Error);
+        }
+
+
+        /// <summary>
+        /// Получение информации о бронированиях пользователя, опционально по датам и статусу
+        /// </summary>
+        /// <param name="request">Набор параметров, необходимых для фильтрации бронирований</param>
+        /// <returns>Результат фильтрации бронирований</returns>
+        /// <response code="200">Успешное выполнение</response>
+        /// <response code="400">Ошибка API</response>
+        [HttpGet("filter")]
+        [ProducesResponseType(typeof(IReadOnlyList<Booking>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResult), (int)HttpStatusCode.BadRequest)]
+        [TypeFilter(typeof(ValidationFilterAttribute), Arguments = new object[] { -105 })]
+        public IActionResult FilterBookings([FromQuery] FilterBookingsRequest request)
+        {
+            var query = bookingRepository.GetByPer(
+                request.UserId,
+                request.StartDate,
+                request.EndDate,
+                request.BookingStatus);
+            return Ok(query.Value);
         }
     }
 }

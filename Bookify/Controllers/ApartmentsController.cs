@@ -17,26 +17,6 @@ namespace Bookify.Controllers
     public class ApartmentsController(IApartmentRepository apartmentRepository) : ControllerBase
     {
         /// <summary>
-        /// Поиск аппартаментов по датам заселения и дополнительным параметрам
-        /// </summary>
-        /// <param name="request">Набор параметров, необходимых для поиска аппартаментов</param>
-        /// <returns>Результат поиска аппартаментов</returns>
-        /// <response code="200">Успешное выполнение</response>
-        /// <response code="400">Ошибка API</response>
-        [ProducesResponseType(typeof(IReadOnlyList<Apartment>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ErrorResult), (int)HttpStatusCode.BadRequest)]
-        [TypeFilter(typeof(ValidationFilterAttribute), Arguments = new object[] { -107 })]
-        [HttpGet("search")]
-        public IActionResult SearchApartments([FromQuery]SearchApartmentRequest request)
-        {
-            var query = apartmentRepository.GetByPer(
-                request.StartDate!.Value,
-                request.EndDate!.Value,
-                request.MaxPrice);
-            return Ok(query.Value);
-        }
-
-        /// <summary>
         /// Добавление нового аппартамента
         /// </summary>
         /// <remarks>
@@ -61,10 +41,38 @@ namespace Bookify.Controllers
         [ProducesResponseType(typeof(ErrorResult), (int)HttpStatusCode.BadRequest)]
         [TypeFilter(typeof(ValidationFilterAttribute), Arguments = new object[] { -108 })]
         [HttpPost("add-apartment")]
-        public IActionResult AddApartment([FromBody]AddApartmentRequest request)
+        public IActionResult AddApartment([FromBody] AddApartmentRequest request)
         {
-            apartmentRepository.Create(Apartment.Create());
-            return Ok(Guid.NewGuid());
+            var result = apartmentRepository.CreateAppartment(
+                request.Name,
+                request.Address,
+                request.Price.Value);
+
+            if (result.IsSuccess)
+                return Ok(result.Value);
+            else
+                return BadRequest(result.Error);
+        }
+
+
+        /// <summary>
+        /// Поиск аппартаментов по датам заселения и дополнительным параметрам
+        /// </summary>
+        /// <param name="request">Набор параметров, необходимых для поиска аппартаментов</param>
+        /// <returns>Результат поиска аппартаментов</returns>
+        /// <response code="200">Успешное выполнение</response>
+        /// <response code="400">Ошибка API</response>
+        [ProducesResponseType(typeof(IReadOnlyList<Apartment>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ErrorResult), (int)HttpStatusCode.BadRequest)]
+        [TypeFilter(typeof(ValidationFilterAttribute), Arguments = new object[] { -107 })]
+        [HttpGet("search")]
+        public IActionResult SearchApartments([FromQuery] SearchApartmentRequest request)
+        {
+            var query = apartmentRepository.GetByPer(
+                request.StartDate!.Value,
+                request.EndDate!.Value,
+                request.MaxPrice);
+            return Ok(query.Value);
         }
     }
 }

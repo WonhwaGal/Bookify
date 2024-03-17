@@ -14,15 +14,6 @@
             Представляет набор методов по работе с аппартаментами
             </summary>
         </member>
-        <member name="M:Bookify.Controllers.ApartmentsController.SearchApartments(Bookify.Models.Requests.SearchApartmentRequest)">
-            <summary>
-            Поиск аппартаментов по датам заселения и дополнительным параметрам
-            </summary>
-            <param name="request">Набор параметров, необходимых для поиска аппартаментов</param>
-            <returns>Результат поиска аппартаментов</returns>
-            <response code="200">Успешное выполнение</response>
-            <response code="400">Ошибка API</response>
-        </member>
         <member name="M:Bookify.Controllers.ApartmentsController.AddApartment(Bookify.Models.Requests.AddApartmentRequest)">
              <summary>
              Добавление нового аппартамента
@@ -46,6 +37,15 @@
              <response code="200">Успешное выполнение</response>
              <response code="400">Ошибка API</response>
         </member>
+        <member name="M:Bookify.Controllers.ApartmentsController.SearchApartments(Bookify.Models.Requests.SearchApartmentRequest)">
+            <summary>
+            Поиск аппартаментов по датам заселения и дополнительным параметрам
+            </summary>
+            <param name="request">Набор параметров, необходимых для поиска аппартаментов</param>
+            <returns>Результат поиска аппартаментов</returns>
+            <response code="200">Успешное выполнение</response>
+            <response code="400">Ошибка API</response>
+        </member>
         <member name="T:Bookify.Controllers.BookingController">
             <summary>
             Представляет набор методов, отвечающих за работу с бронированиями
@@ -55,15 +55,6 @@
             <summary>
             Представляет набор методов, отвечающих за работу с бронированиями
             </summary>
-        </member>
-        <member name="M:Bookify.Controllers.BookingController.FilterBookings(Bookify.Models.Requests.FilterBookingsRequest)">
-            <summary>
-            Получение информации о бронированиях пользователя, опционально по датам и статусу
-            </summary>
-            <param name="request">Набор параметров, необходимых для фильтрации бронирований</param>
-            <returns>Результат фильтрации бронирований</returns>
-            <response code="200">Успешное выполнение</response>
-            <response code="400">Ошибка API</response>
         </member>
         <member name="M:Bookify.Controllers.BookingController.ReceiveBooking(Bookify.Models.Requests.ReserveBookingRequest)">
             <summary>
@@ -82,6 +73,15 @@
             </remarks>
             <param name="request">Набор параметров, необходимых для создания бронирования клиента</param>
             <returns>Результат создания нового бронирования</returns>
+            <response code="200">Успешное выполнение</response>
+            <response code="400">Ошибка API</response>
+        </member>
+        <member name="M:Bookify.Controllers.BookingController.FilterBookings(Bookify.Models.Requests.FilterBookingsRequest)">
+            <summary>
+            Получение информации о бронированиях пользователя, опционально по датам и статусу
+            </summary>
+            <param name="request">Набор параметров, необходимых для фильтрации бронирований</param>
+            <returns>Результат фильтрации бронирований</returns>
             <response code="200">Успешное выполнение</response>
             <response code="400">Ошибка API</response>
         </member>
@@ -194,14 +194,14 @@
             Название
             </summary>
         </member>
-        <member name="P:Bookify.Models.Requests.AddApartmentRequest.Description">
-            <summary>
-            Описание
-            </summary>
-        </member>
         <member name="P:Bookify.Models.Requests.AddApartmentRequest.Address">
             <summary>
             Адрес
+            </summary>
+        </member>
+        <member name="P:Bookify.Models.Requests.AddApartmentRequest.Price">
+            <summary>
+            Описание
             </summary>
         </member>
         <member name="P:Bookify.Models.Requests.AddApartmentRequest.Amenities">

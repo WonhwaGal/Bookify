@@ -1,9 +1,11 @@
 ﻿using Bookify.Models.Abstractions;
+using Bookify.Services;
 
 namespace Bookify.Models
 {
     public class Apartment : Entity
     {
+        public Apartment() { }
         public Apartment(
             Guid id,
             string name,
@@ -21,11 +23,23 @@ namespace Bookify.Models
             Amenities = amenities;
         }
 
-        public Apartment() { }
+        public static Apartment Create(
+            ApartmentSettingService settingService, 
+            string name, 
+            string address, 
+            decimal price)
+        {
+            var appartmentSettings = settingService.SetUpApartment(name, address, price);
 
-        private Apartment(Guid id) : base(id) { }
-
-        public static Apartment Create() => new (Guid.NewGuid());
+            return new Apartment(
+                Guid.NewGuid(),
+                appartmentSettings.Name,
+                appartmentSettings.Description,
+                appartmentSettings.Address,
+                appartmentSettings.Price,
+                appartmentSettings.CleaningFee,
+                appartmentSettings.Amenities);
+        }
 
         public string Name { get; private set; }
 

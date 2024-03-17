@@ -12,20 +12,20 @@ namespace Bookify.Models.Requests
         public string? Name { get; set; }
 
         /// <summary>
-        /// Описание
-        /// </summary>
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Описание аппартаментов должно быть указано")]
-        [StringLength(maximumLength: int.MaxValue, MinimumLength = 10, 
-            ErrorMessage = "Описание аппартаментов не должно содержать менее 10 символов")]
-        public string? Description { get; set; }
-
-        /// <summary>
         /// Адрес
         /// </summary>
         [Required(AllowEmptyStrings = false, ErrorMessage = "Адрес аппартаментов должен быть указан")]
         [StringLength(maximumLength: 500, MinimumLength = 10,
             ErrorMessage = "Адрес аппартаментов должен содержать от 10 до 500 символов")]
         public string? Address { get; set; }
+
+        /// <summary>
+        /// Описание
+        /// </summary>
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Цена аппартаментов должна быть указана")]
+        [Range(50, 1000, 
+            ErrorMessage = "Стоимость апартаментов должна находиться в диапазоне от 50 до 1000")]
+        public decimal? Price { get; set; }
 
         /// <summary>
         /// Дополнительные удобства
